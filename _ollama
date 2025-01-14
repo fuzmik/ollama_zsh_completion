@@ -101,6 +101,7 @@ _ollama() {
         'cp:Copy a model'
         'rm:Remove a model'
         'help:Help about any command'
+	'stop:Stop a running model'
     )
 
     _arguments -C \
@@ -181,6 +182,13 @@ _ollama() {
                 ;;
                 help)
                     _describe -t commands '' commands
+                ;;
+                stop)
+                    _arguments \
+                        '*::model:->model'
+                    if [[ $state == model ]]; then
+                        _fetch_ollama_models
+                    fi
                 ;;
             esac
         ;;
